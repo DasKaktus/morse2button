@@ -282,7 +282,7 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 				$(document).on("click", "#solvemorsebtn", function(){
 					postMorse("morse");
 				});
-				$(document).on("click", "#solvetranslatedmorsebtn", function(){
+				$(document).on("click", "#solvetranslatedbtn", function(){
 					postMorse("morse2");
 				});
 			});
