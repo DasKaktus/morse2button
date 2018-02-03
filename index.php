@@ -348,8 +348,8 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 						});
 						
 						selecttext = "Morse translates to: "+msg.translation+"\n";
-						selecttext += "Missing letters:" + msg.missing + "\n";
-						selecttext += "Numbers:" + msg.numbers + "\n";
+						selecttext += "Missing letters: " + msg.missing + "\n";
+						selecttext += "Numbers: " + msg.numbers + "\n";
 						selecttext += "Combinations:\n";
 						selecttext += combs;
 						selecttext += "\n";
