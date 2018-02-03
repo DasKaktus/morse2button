@@ -338,6 +338,7 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 								if(comb == 6){comb = 1; machine++;}
 								if(comb == 1){
 									$("#solutionmachinetable").append("<tr><td colspan='2'><strong>Machine "+machine+"</strong></td></tr>");
+									$("#solutionmachinetable").append("<tr><td>Light "+comb+"</td><td>"+item2+"</td></tr>");
 								}else{
 									$("#solutionmachinetable").append("<tr><td>Light "+comb+"</td><td>"+item2+"</td></tr>");
 								}
