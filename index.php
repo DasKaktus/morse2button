@@ -352,6 +352,8 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 						selecttext += "Numbers:" + msg.numbers + "\n";
 						selecttext += "Combinations:\n";
 						selecttext += combs;
+						selecttext += "\n";
+						selecttext += ". = on, - = off";
 						console.log(selecttext);
 					}
 				});
