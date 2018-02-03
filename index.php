@@ -31,6 +31,15 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 	//-.. ..- .-.. . . - -.. --- .-. ..- -- ... .--. --- .--. - .. .- -- --- .-. ..
 	$morse = $MorseCodeTranslator->morseToLatin($_POST["morse"]);
 
+}else if(isset($_POST["morse2"]) && $_POST["morse2"] != ""){
+
+	require('morse.php');
+	$MorseCodeTranslator = new MorseCodeTranslator();
+
+	//-.. ..- .-.. . . - -.. --- .-. ..- -- ... .--. --- .--. - .. .- -- --- .-. ..
+	//$morse = $MorseCodeTranslator->morseToLatin($_POST["morse"]);
+	$morse = str_replace(" ", "", $_POST["morse2"]);
+
 }
 ?>
 <!DOCTYPE html>
@@ -50,6 +59,11 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 				<form method="post">
 				<label for="morse" />Input water tower morse here:</label>
 					<input type="text" placeholder="Enter morse" style="width: 400px;" name="morse" id="morse" value="" />
+					<input type="submit" value="Submit" />
+				</form>
+				<form method="post">
+				<label for="morse2" />Or enter translated morse here:</label>
+					<input type="text" placeholder="Enter translated morse" style="width: 400px;" name="morse2" id="morse2" value="" />
 					<input type="submit" value="Submit" />
 				</form>
 				<p></p>
