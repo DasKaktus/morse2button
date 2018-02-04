@@ -323,30 +323,37 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 							
 							var comb = 1;
 							var first = true;
+							var copycomb = "";
 							$.each(msg.combinations, function(i, item) {
 								if(first){
 									first = false;
 									$("#solutioncombinationtable").append("<tr><td colspan='2' style='text-align:center;'><strong>Building 1</strong></td></tr>");
+									copycomb += "Building 1:\n";
 								}else{
 									$("#solutioncombinationtable").append("<tr><td colspan='2'style='text-align:center;'><strong>Building 3</strong></td></tr>");
+									copycomb += "\nBuilding 3:\n";
 								}
 								comb = 1;
 								$.each(item, function(i2, item2) {
 									$("#solutioncombinationtable").append("<tr><td>"+comb+"</td><td>"+item2+"</td></tr>");
 									combs+=item2+"\n";
 									comb++;
+									copycomb += item2 + "\n";
 								});
 							});
 							first = true;
+							
 							$.each(msg.machines, function(i, item) {
 								if(first){
 									first = false;
 									$("#solutionmachinetable").append("<tr><td colspan='2' style='text-align:center;'><strong>Building 1</strong></td></tr>");
+									
 								}else{
 									$("#solutionmachinetable").append("<tr><td colspan='2' style='text-align:center;'><strong>Building 3</strong></td></tr>");
+									
 								}
 								comb = 1;
-								var machine = 1;
+								var machine = 1;								
 								$.each(item, function(i2, item2) {
 									if(comb == 6){comb = 1; machine++;}
 									if(comb == 1){
@@ -364,7 +371,8 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 							selecttext += "Missing letters: " + msg.missing + "\n";
 							selecttext += "Numbers: " + msg.numbers + "\n";
 							selecttext += "Combinations:\n";
-							selecttext += combs;
+							//selecttext += combs;
+							selecttext += copycomb;
 							selecttext += "\n";
 							selecttext += ". = on, - = off";
 							//console.log(selecttext);
