@@ -50,6 +50,7 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
 		<style>
 			#zeebruggeimg {
 				border-radius: 5px;
@@ -259,6 +260,7 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
 		<script>
 			var selecttext = "";
 			$(document).ready(function(){
@@ -300,61 +302,73 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 					data: datan,
 					dataType: "json",
 					success: function(msg) {
-						var combs = "";
-						$("#solutioncombinationtable tr").remove();
-						$("#solutionmachinetable tr").remove();
-						$("#solutionpanel").css("display","");
-						$("#solutiontranslation").html(msg.translation);
-						$("#solutionmissing").html(msg.missing);
-						$("#solutionmissingtranslation").html(msg.numbers);
-						
-						var comb = 1;
-						var first = true;
-						$.each(msg.combinations, function(i, item) {
-							if(first){
-								first = false;
-								$("#solutioncombinationtable").append("<tr><td colspan='2' style='text-align:center;'><strong>Building 1</strong></td></tr>");
-							}else{
-								$("#solutioncombinationtable").append("<tr><td colspan='2'style='text-align:center;'><strong>Building 3</strong></td></tr>");
-							}
-							comb = 1;
-							$.each(item, function(i2, item2) {
-								$("#solutioncombinationtable").append("<tr><td>"+comb+"</td><td>"+item2+"</td></tr>");
-								combs+=item2+"\n";
-								comb++;
+						if(msg.status == "nomorse"){
+							BootstrapDialog.alert({
+								type: BootstrapDialog.TYPE_WARNING,
+								message: 'Did you forget to enter any text?'
 							});
-						});
-						first = true;
-						$.each(msg.machines, function(i, item) {
-							if(first){
-								first = false;
-								$("#solutionmachinetable").append("<tr><td colspan='2' style='text-align:center;'><strong>Building 1</strong></td></tr>");
-							}else{
-								$("#solutionmachinetable").append("<tr><td colspan='2' style='text-align:center;'><strong>Building 3</strong></td></tr>");
-							}
-							comb = 1;
-							var machine = 1;
-							$.each(item, function(i2, item2) {
-								if(comb == 6){comb = 1; machine++;}
-								if(comb == 1){
-									$("#solutionmachinetable").append("<tr><td colspan='2'><strong>Machine "+machine+"</strong></td></tr>");
-									$("#solutionmachinetable").append("<tr><td>Light "+comb+"</td><td>"+item2+"</td></tr>");
+						}else if(msg.status == "wrongmorse"){
+							BootstrapDialog.alert({
+								type: BootstrapDialog.TYPE_WARNING,
+								message: 'There is something wrong with the morse...'
+							});
+						}else{
+							var combs = "";
+							$("#solutioncombinationtable tr").remove();
+							$("#solutionmachinetable tr").remove();
+							$("#solutionpanel").css("display","");
+							$("#solutiontranslation").html(msg.translation);
+							$("#solutionmissing").html(msg.missing);
+							$("#solutionmissingtranslation").html(msg.numbers);
+							
+							var comb = 1;
+							var first = true;
+							$.each(msg.combinations, function(i, item) {
+								if(first){
+									first = false;
+									$("#solutioncombinationtable").append("<tr><td colspan='2' style='text-align:center;'><strong>Building 1</strong></td></tr>");
 								}else{
-									$("#solutionmachinetable").append("<tr><td>Light "+comb+"</td><td>"+item2+"</td></tr>");
+									$("#solutioncombinationtable").append("<tr><td colspan='2'style='text-align:center;'><strong>Building 3</strong></td></tr>");
 								}
-								comb++;
-
+								comb = 1;
+								$.each(item, function(i2, item2) {
+									$("#solutioncombinationtable").append("<tr><td>"+comb+"</td><td>"+item2+"</td></tr>");
+									combs+=item2+"\n";
+									comb++;
+								});
 							});
-						});
-						
-						selecttext = "Morse translates to: "+msg.translation+"\n";
-						selecttext += "Missing letters: " + msg.missing + "\n";
-						selecttext += "Numbers: " + msg.numbers + "\n";
-						selecttext += "Combinations:\n";
-						selecttext += combs;
-						selecttext += "\n";
-						selecttext += ". = on, - = off";
-						console.log(selecttext);
+							first = true;
+							$.each(msg.machines, function(i, item) {
+								if(first){
+									first = false;
+									$("#solutionmachinetable").append("<tr><td colspan='2' style='text-align:center;'><strong>Building 1</strong></td></tr>");
+								}else{
+									$("#solutionmachinetable").append("<tr><td colspan='2' style='text-align:center;'><strong>Building 3</strong></td></tr>");
+								}
+								comb = 1;
+								var machine = 1;
+								$.each(item, function(i2, item2) {
+									if(comb == 6){comb = 1; machine++;}
+									if(comb == 1){
+										$("#solutionmachinetable").append("<tr><td colspan='2'><strong>Machine "+machine+"</strong></td></tr>");
+										$("#solutionmachinetable").append("<tr><td>Light "+comb+"</td><td>"+item2+"</td></tr>");
+									}else{
+										$("#solutionmachinetable").append("<tr><td>Light "+comb+"</td><td>"+item2+"</td></tr>");
+									}
+									comb++;
+
+								});
+							});
+							
+							selecttext = "Morse translates to: "+msg.translation+"\n";
+							selecttext += "Missing letters: " + msg.missing + "\n";
+							selecttext += "Numbers: " + msg.numbers + "\n";
+							selecttext += "Combinations:\n";
+							selecttext += combs;
+							selecttext += "\n";
+							selecttext += ". = on, - = off";
+							//console.log(selecttext);
+						}
 					}
 				});
 			}

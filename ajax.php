@@ -44,6 +44,8 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 	die();
 }
 
+
+
 $comb = array("building1" => array(), "building3" => array());
 $machine = array("building1" => array(), "building3" => array());
 
@@ -73,7 +75,13 @@ for ($i=0; $i<strlen($inputnumbers); $i++) {
 	}
 }
 
+if(strlen($missingletters) != 8){
+	echo json_encode(array("status" => "wrongmorse"));
+	die();
+}
+
 $retarr = array();
+$retarr["status"] = "ok";
 $retarr["translation"] = str_replace(" ", "", $morse);
 $retarr["missing"] = $missingletters;
 $retarr["numbers"] = $inputnumbers;
