@@ -335,7 +335,7 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 								}
 								comb = 1;
 								$.each(item, function(i2, item2) {
-									$("#solutioncombinationtable").append("<tr><td>"+comb+"</td><td>"+item2+"</td></tr>");
+									$("#solutioncombinationtable").append("<tr><td>Machine "+comb+"</td><td>"+item2+"</td></tr>");
 									combs+=item2+"\n";
 									comb++;
 									copycomb += item2 + "\n";
