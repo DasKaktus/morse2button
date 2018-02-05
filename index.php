@@ -213,7 +213,7 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 						<div class="col-xs-6">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h3 class="panel-title">Combinations</h3>
+									<h3 class="panel-title">Combinations (From left to right)</h3>
 								</div>
 								<div class="panel-body" id="solutioncombination">
 									<table class="table" id="solutioncombinationtable">
@@ -224,7 +224,7 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 						<div class="col-xs-6">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h3 class="panel-title">Machine configuration</h3>
+									<h3 class="panel-title">Machine configuration (From left to right)</h3>
 								</div>
 								<div class="panel-body" id="solutionmachine">
 									<table class="table" id="solutionmachinetable">
