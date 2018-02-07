@@ -44,7 +44,7 @@ if(isset($_POST["morse"]) && $_POST["morse"] != ""){
 	die();
 }
 
-
+$morse = strtoupper($morse);
 
 $comb = array("building1" => array(), "building3" => array());
 $machine = array("building1" => array(), "building3" => array());
